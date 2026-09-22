@@ -11,26 +11,26 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'javac Jenkins.java'
+                bat 'javac Jenkins.java'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'java Jenkins'
+                bat 'java Jenkins'
             }
         }
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t jenkins-demo .'
+                bat 'docker build -t jenkins-demo .'
             }
         }
 
         stage('Docker Run/Deploy') {
             steps {
-                sh 'docker rm -f jenkins-demo-container || true'
-                sh 'docker run -d --name jenkins-demo-container jenkins-demo'
+                bat 'docker rm -f jenkins-demo-container || exit /b 0'
+                bat 'docker run -d --name jenkins-demo-container jenkins-demo'
             }
         }
     }
